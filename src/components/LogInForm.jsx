@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import InputBox from "./inputBox";
+import InputBox from "./InputBox";
 import authSevice from "../appwrite/authService";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
