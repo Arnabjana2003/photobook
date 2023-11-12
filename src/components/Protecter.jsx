@@ -12,9 +12,6 @@ function Protecter({children,authentication = true}) {
             navigate("/login")
         }else if(!authentication && authStatus !== authentication){
             navigate("/")}
-        // }else if(authentication && authStatus === authentication){
-        //     navigate("/all-posts")
-        // }
         setLoading(false)
     }
     ,[authentication,navigate,authStatus])
