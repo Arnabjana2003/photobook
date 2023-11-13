@@ -12,10 +12,10 @@ function ViewPost() {
   }, []);
   if (post) {
     return (
-      <div className="py-8 flex justify-center">
-        <div className="max-w-[80%] max-h-[80%]">
+      <div className="py-8 flex justify-center p-1">
+        <div className="md:max-w-[85%] max-h-[80%]">
           <h4 className="font-semibold my-1">{post.username}</h4>
-          <div className=" bg-slate-500 flex items-center w-full overflow-hidden h-4/5">
+          <div className=" bg-slate-500 flex justify-center items-center w-full overflow-hidden h-4/5">
             <img
               src={services.previewFile(post.featuredImage)}
               alt={post.title}

@@ -7,11 +7,12 @@ function Protecter({children,authentication = true}) {
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true)
     const authStatus = useSelector(state=>state.authReducer.status)
+    
     useEffect(()=>{
         if(authentication && authStatus !== authentication){
             navigate("/login")
         }else if(!authentication && authStatus !== authentication){
-            navigate("/")}
+            navigate("/all-posts")}
         setLoading(false)
     }
     ,[authentication,navigate,authStatus])

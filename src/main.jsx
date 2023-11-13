@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <Protecter>
+          <Protecter authentication={false}>
             <LogInForm />
           </Protecter>
         ),
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "all-posts",
         element: (
-          <Protecter>
+          <Protecter authentication>
             <PostsPage />
           </Protecter>
         ),
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: "add-post",
         element: (
-          <Protecter>
+          <Protecter authentication>
             <AddPostForm />
           </Protecter>
         ),
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: "posts/:slug",
         element: (
-          <Protecter>
+          <Protecter authentication>
             <ViewPost/>
           </Protecter>
         ),

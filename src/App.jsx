@@ -17,7 +17,8 @@ function App() {
     authService
       .getCurrentUSer()
       .then((userData) => {
-        dispatch(login({ userData }));
+        dispatch(login({ userData }))
+        
       })
       .catch((err) => {
         console.log(err);
