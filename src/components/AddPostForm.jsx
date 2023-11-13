@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import authSevice from "../appwrite/authService";
 
 function AddPostForm() {
-
   const btnRef = useRef();
   const currentUser = useSelector((state) => state.authReducer);
   const [titles, setTitles] = useState("");
   const [slugs, setSlugs] = useState("");
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   const handleClick = async (event) => {
     const title = event.title.value;
@@ -24,18 +22,26 @@ function AddPostForm() {
       const imgData = await services.uploadFile(imgFile);
       if (imgData) {
         const featuredImage = imgData.$id;
-        const userId = currentUser.userData.$id
-        const username = currentUser.userData.name
-        await services.createPost(title,slug,content,featuredImage,"active",userId,username)
-          alert("Upload successful")
-        navigate("/all-posts")
+        const userId = currentUser.userData.$id;
+        const username = currentUser.userData.name;
+        await services.createPost(
+          title,
+          slug,
+          content,
+          featuredImage,
+          "active",
+          userId,
+          username
+        );
+        navigate("/all-posts");
         btnRef.current.disabled = false;
-        
-      } else alert("Image not uploaded");
+      } else {
+        alert("Image not uploaded");
+        btnRef.current.disabled = false;
+      }
     } else {
       alert("Enter all the feilds");
     }
- 
   };
 
   useEffect(() => {
@@ -45,7 +51,6 @@ function AddPostForm() {
       .replace(/[^a-zA-Z\d\s]+/g, "-")
       .replace(/\s/g, "-");
     setSlugs(slugVal);
-   
   }, [titles]);
   return (
     <div className="w-full h-full flex justify-center items-centerr">
@@ -54,7 +59,7 @@ function AddPostForm() {
           e.preventDefault();
           handleClick(e.target);
         }}
-      className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4"
+        className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4"
       >
         <div className="my-3">
           <label htmlFor="title">Title</label>
@@ -107,7 +112,7 @@ function AddPostForm() {
           />
         </div>
         <button
-        ref={btnRef}
+          ref={btnRef}
           type="submit"
           className="px-2 bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-md my-2"
         >
