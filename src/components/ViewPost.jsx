@@ -13,7 +13,7 @@ function ViewPost() {
   }, []);
   if (post) {
     return (
-      <div className="w-screen h-screen md:h-auto py-8 flex justify-center p-1">
+      <div className="w-screen min-h-screen md:h-auto py-8 flex justify-center p-1">
         <div className="md:max-w-[85%] max-h-[80%] flex justify-center">
           <div className="w-full md:w-3/5 ">
           <h4 className="font-semibold my-1">{post.username}</h4>

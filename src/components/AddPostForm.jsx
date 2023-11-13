@@ -58,13 +58,13 @@ function AddPostForm() {
     setSlugs(slugVal);
   }, [titles]);
   return (
-    <div className="w-full h-full flex justify-center items-centerr">
+    <div className="w-full h-full flex justify-center items-centerr mt-10">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleClick(e.target);
         }}
-        className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4"
+        className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 rounded-md bg-blue-100"
       >
         <div className="my-3">
           <label htmlFor="title">Title</label>
@@ -119,7 +119,7 @@ function AddPostForm() {
         <button
           ref={btnRef}
           type="submit"
-          className="px-2 bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-md my-2"
+          className=" bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-sm my-2 px-5 py-1"
         >
           Post
         </button>

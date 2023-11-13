@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import LogOutBtn from "../LogOutBtn";
 import menubar from "../../assets/menu.png";
+import addIcon from "../../assets/add.svg";
+import homeIcon from "../../assets/home.svg";
 
 function Header() {
   const navigate = useNavigate();
@@ -9,16 +11,24 @@ function Header() {
   const navLinks = [
     { name: "Login", slug: "/login", active: !authData.status },
     { name: "SignUp", slug: "/signup", active: !authData.status },
-    { name: "Add Post", slug: "/add-post", active: authData.status },
-    { name: "All posts", slug: "/all-posts", active: authData.status },
+    {
+      name: "Add Post",
+      slug: "/add-post",
+      active: authData.status,
+      icon: addIcon,
+    },
+    {
+      name: "All posts",
+      slug: "/all-posts",
+      active: authData.status,
+      icon: homeIcon,
+    },
   ];
   return (
     <>
-      <nav className="min-w-full bg-blue-500 p-1 flex justify-between items-center">
-        <div className="text-slate-200 text-lg font-semibold">
-          Photosbook
-        </div>
-        <div className="">
+      <nav className="min-w-full p-1 flex justify-between items-center bg-slate-200">
+        <div className="text-blue-600 font-bold text-lg">Photosbook</div>
+        <div className=" flex items-center">
           {navLinks.map(
             (item) =>
               item.active && (
@@ -27,11 +37,17 @@ function Header() {
                   to={item.slug}
                   className={({ isActive }) =>
                     `${
-                      isActive ? "text-red-200 text-lg font-bold" : "text-white"
-                    } mx-1 text-sm md:mx-4 md:text-base`
+                      isActive
+                        ? " border-blue-400 border-b-4 text-blue-600 font-bold"
+                        : "font-semibold text-slate-900 border-none"
+                    } mx-2 text-base md:mx-4 md:text-base p-2`
                   }
                 >
-                  {item.name}
+                  {item.icon ? (
+                    <img className=" w-5 inline" src={item.icon} />
+                  ) : (
+                    <p className="inline">{item.name}</p>
+                  )}
                 </NavLink>
               )
           )}
@@ -41,6 +57,7 @@ function Header() {
           <img src={menubar} className=" h-5" />
         </div> */}
       </nav>
+      <hr className=" w-full bg-slate-100 h-[2px]" />
     </>
   );
 }

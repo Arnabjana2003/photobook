@@ -3,13 +3,14 @@ import authSevice from '../appwrite/authService'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {logout} from '../store/authSlice'
-
+import logoutIcon from "../assets/logout.svg";
 
 function LogOutBtn() {
 
   const dispatch = useDispatch()
 
-const navigate = useNavigate()
+const navigate = useNavigate() 
+
     const logOut = ()=>{
         authSevice.logout()
         .then(()=>{
@@ -19,7 +20,9 @@ const navigate = useNavigate()
     }
 
   return (
-    <button className=' bg-blue-700 px-1 text-sm md:p-2 md:text-base font-semibold text-white rounded-md my-2' onClick={logOut}>Log Out</button>
+    <div className=' inline-block mx-2' onClick={logOut}>
+      <img className='w-5' src={logoutIcon} />
+      </div>
   )
 }
 
