@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import services from "../appwrite/services";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import authSevice from "../appwrite/authService";
 
 function AddPostForm() {
 
+  const btnRef = useRef();
   const currentUser = useSelector((state) => state.authReducer);
   const [titles, setTitles] = useState("");
   const [slugs, setSlugs] = useState("");
@@ -19,6 +20,7 @@ function AddPostForm() {
     const imgFile = event.uploadImg.files[0];
 
     if (title && slug && content && imgFile) {
+      btnRef.current.disabled = true;
       const imgData = await services.uploadFile(imgFile);
       if (imgData) {
         console.log("Image uploaded");
@@ -27,6 +29,7 @@ function AddPostForm() {
         const username = currentUser.userData.name
         await services.createPost(title,slug,content,featuredImage,"active",userId,username)
         navigate("/all-posts")
+        btnRef.current.disabled = false;
       } else console.log("Image not uploaded");
     } else {
       alert("Enter all the feilds");
@@ -103,8 +106,9 @@ function AddPostForm() {
           />
         </div>
         <button
+        ref={btnRef}
           type="submit"
-          className="px-2 bg-blue-600 text-white font-semibold rounded-md my-2"
+          className="px-2 bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-md my-2"
         >
           Post
         </button>
