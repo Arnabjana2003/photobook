@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import services from "../appwrite/services";
 import PostCard from "./PostCard";
+import Loading from "./Loading";
 
 function AllPosts() {
   
@@ -16,7 +17,8 @@ function AllPosts() {
   if (posts.length == 0) {
     return (
       <>
-        <h1>No posts found</h1>
+        {/* <h1 className=" text-violet-600 text-lg text-center font-bold">Loading all posts</h1> */}
+        <Loading/>
       </>
     );
   }

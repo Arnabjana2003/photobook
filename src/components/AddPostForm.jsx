@@ -23,14 +23,15 @@ function AddPostForm() {
       btnRef.current.disabled = true;
       const imgData = await services.uploadFile(imgFile);
       if (imgData) {
-        console.log("Image uploaded");
         const featuredImage = imgData.$id;
         const userId = currentUser.userData.$id
         const username = currentUser.userData.name
         await services.createPost(title,slug,content,featuredImage,"active",userId,username)
+          alert("Upload successful")
         navigate("/all-posts")
         btnRef.current.disabled = false;
-      } else console.log("Image not uploaded");
+        
+      } else alert("Image not uploaded");
     } else {
       alert("Enter all the feilds");
     }
@@ -100,7 +101,7 @@ function AddPostForm() {
           <input
             name="uploadImg"
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg image/jpg image/webp"
             id="image"
             className=""
           />

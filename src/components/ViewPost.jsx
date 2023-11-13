@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import services from "../appwrite/services";
+import Loading from "./Loading";
 
 function ViewPost() {
   const slug = useParams().slug;
@@ -15,7 +16,7 @@ function ViewPost() {
       <div className="py-8 flex justify-center p-1">
         <div className="md:max-w-[85%] max-h-[80%]">
           <h4 className="font-semibold my-1">{post.username}</h4>
-          <div className=" bg-slate-500 flex justify-center items-center w-full overflow-hidden h-4/5">
+          <div className="border-4 flex justify-center items-center w-full overflow-hidden h-4/5">
             <img
               src={services.previewFile(post.featuredImage)}
               alt={post.title}
@@ -27,7 +28,7 @@ function ViewPost() {
         </div>
       </div>
     );
-  } else return <h1>Loading Post View</h1>;
+  } else return <><Loading/></>
 }
 
 export default ViewPost;
