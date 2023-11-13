@@ -28,8 +28,7 @@ export class AuthService{
         try {
             return this.account.get()
         } catch (error) {
-            console.log("GETCURRENTUSER ERROR",error)
-            return error.message
+            return error
         }
         
     }

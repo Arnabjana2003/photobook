@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import services from "../appwrite/services";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import authSevice from "../appwrite/authService";
+
 
 function AddPostForm() {
   const btnRef = useRef();
-  const currentUser = useSelector((state) => state.authReducer);
   const [titles, setTitles] = useState("");
   const [slugs, setSlugs] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const currentUser = useSelector(state=>state.authReducer.userData)
+
 
   const handleClick = async (event) => {
     const title = event.title.value;
@@ -17,14 +18,14 @@ function AddPostForm() {
     const content = event.content.value;
     const imgFile = event.uploadImg.files[0];
 
-    if (title && slug && content && imgFile) {
+    if (title && slug && imgFile) {
       btnRef.current.disabled = true;
-      const imgData = await services.uploadFile(imgFile);
-      if (imgData) {
+      services.uploadFile(imgFile)
+      .then((imgData)=>{
         const featuredImage = imgData.$id;
-        const userId = currentUser.userData.$id;
-        const username = currentUser.userData.name;
-        await services.createPost(
+        const userId = currentUser.$id;
+        const username = currentUser.name;
+        services.createPost(
           title,
           slug,
           content,
@@ -32,13 +33,17 @@ function AddPostForm() {
           "active",
           userId,
           username
-        );
-        navigate("/all-posts");
+        )
+        .then(()=>{
+          btnRef.current.disabled = false;
+          navigate("/all-posts");
+        })
+      })
+        .catch((err)=>{
+          console.log(err);
+          alert("Error");
         btnRef.current.disabled = false;
-      } else {
-        alert("Image not uploaded");
-        btnRef.current.disabled = false;
-      }
+        })
     } else {
       alert("Enter all the feilds");
     }
