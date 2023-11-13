@@ -13,10 +13,11 @@ function ViewPost() {
   }, []);
   if (post) {
     return (
-      <div className="py-8 flex justify-center p-1">
-        <div className="md:max-w-[85%] max-h-[80%]">
+      <div className="w-screen h-screen md:h-auto py-8 flex justify-center p-1">
+        <div className="md:max-w-[85%] max-h-[80%] flex justify-center">
+          <div className="w-full md:w-3/5 ">
           <h4 className="font-semibold my-1">{post.username}</h4>
-          <div className="border-4 flex justify-center items-center w-full overflow-hidden h-4/5">
+          <div className="border-4 flex justify-center items-center overflow-hidden">
             <img
               src={services.previewFile(post.featuredImage)}
               alt={post.title}
@@ -25,6 +26,7 @@ function ViewPost() {
           </div>
           <h1 className="my-2 text-xl font-bold">{post.title}</h1>
           <p>{post.content}</p>
+          </div>
         </div>
       </div>
     );

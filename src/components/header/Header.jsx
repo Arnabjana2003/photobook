@@ -16,7 +16,7 @@ function Header() {
     <>
       <nav className="min-w-full bg-blue-500 p-1 flex justify-between items-center">
         <div className="text-slate-200 text-lg font-semibold">
-          Photobook
+          Photosbook
         </div>
         <div className="">
           {navLinks.map(
