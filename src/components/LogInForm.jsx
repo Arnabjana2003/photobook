@@ -27,8 +27,6 @@ function LogInForm() {
       })
       .catch((err) => setError(err.message))
       .finally(() => {
-        emailRef.current.value = "";
-        passRef.current.value = "";
         setLoading(false);
         btnRef.current.disabled = false;
       });

@@ -21,7 +21,7 @@ function AddPostForm() {
     const content = event.content.value;
     const imgFile = event.uploadImg.files[0];
 
-    if (title && slug && imgFile) {
+    if (title && slug && content && imgFile) {
       btnRef.current.disabled = true;
       services.uploadFile(imgFile)
       .then((imgData)=>{
@@ -47,10 +47,6 @@ function AddPostForm() {
           alert("Error");
         btnRef.current.disabled = false;
         }).finally(()=>{
-          event.title.value = ""
-          event.slug.value = ""
-          event.content.value = ""
-          event.uploadImg.value = ""
           setLoading(false)
         })
     } else {

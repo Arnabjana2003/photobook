@@ -28,9 +28,6 @@ function SignUpForm() {
       })
       .catch((err) => setError(err))
       .finally(() => {
-        emailRef.current.value = "";
-        passRef.current.value = "";
-        nameRef.current.value = "";
         setLoading(false);
         btnRef.current.disabled = false;
       });
