@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {logout} from '../store/authSlice'
 import logoutIcon from "../assets/logout.svg";
-
 function LogOutBtn() {
 
-  const dispatch = useDispatch()
-
 const navigate = useNavigate() 
+const dispatch = useDispatch();
 
     const logOut = ()=>{
         authSevice.logout()

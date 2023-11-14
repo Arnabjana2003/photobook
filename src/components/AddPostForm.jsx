@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import services from "../appwrite/services";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 
 function AddPostForm() {
+  const [loading,setLoading] = useState(false);
   const btnRef = useRef();
   const [titles, setTitles] = useState("");
   const [slugs, setSlugs] = useState("");
@@ -13,6 +15,7 @@ function AddPostForm() {
 
 
   const handleClick = async (event) => {
+    setLoading(true);
     const title = event.title.value;
     const slug = event.slug.value;
     const content = event.content.value;
@@ -43,6 +46,12 @@ function AddPostForm() {
           console.log(err);
           alert("Error");
         btnRef.current.disabled = false;
+        }).finally(()=>{
+          event.title.value = ""
+          event.slug.value = ""
+          event.content.value = ""
+          event.uploadImg.value = ""
+          setLoading(false)
         })
     } else {
       alert("Enter all the feilds");
@@ -57,75 +66,81 @@ function AddPostForm() {
       .replace(/\s/g, "-");
     setSlugs(slugVal);
   }, [titles]);
-  return (
-    <div className="w-full h-full flex justify-center items-centerr mt-10">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleClick(e.target);
-        }}
-        className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 rounded-md bg-blue-100"
-      >
-        <div className="my-3">
-          <label htmlFor="title">Title</label>
-          <br />
-          <input
-            name="title"
-            type="text"
-            placeholder="post name"
-            id="title"
-            className="outline-none border p-1 w-full rounded-md"
-            value={titles}
-            onChange={(e) => {
-              setTitles(String(e.target.value));
-            }}
-          />
-        </div>
-        <div className="my-3">
-          <label htmlFor="slug">Slug</label>
-          <br />
-          <input
-            name="slug"
-            readOnly
-            type="text"
-            id="slug"
-            className="outline-none border p-1 w-full rounded-md"
-            value={slugs}
-          />
-        </div>
-        <div className="my-3">
-          <label htmlFor="content">Write about post</label>
-          <br />
-          <textarea
-            name="content"
-            type="text"
-            id="content"
-            rows={4}
-            placeholder="write about your posts"
-            className="outline-none border p-1 w-full rounded-md"
-          />
-        </div>
-        <div className="my-3">
-          <label htmlFor="image">Upload featured image</label>
-          <br />
-          <input
-            name="uploadImg"
-            type="file"
-            accept="image/png, image/jpeg image/jpg image/webp"
-            id="image"
-            className=""
-          />
-        </div>
-        <button
-          ref={btnRef}
-          type="submit"
-          className=" bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-sm my-2 px-5 py-1"
+
+  
+  if(loading){
+    return <Loading label="Uploading new Post"/>
+  }else{
+    return (
+      <div className="w-full h-full flex justify-center items-centerr mt-10">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleClick(e.target);
+          }}
+          className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 rounded-md bg-blue-100"
         >
-          Post
-        </button>
-      </form>
-    </div>
-  );
+          <div className="my-3">
+            <label htmlFor="title">Title</label>
+            <br />
+            <input
+              name="title"
+              type="text"
+              placeholder="post name"
+              id="title"
+              className="outline-none border p-1 w-full rounded-md"
+              value={titles}
+              onChange={(e) => {
+                setTitles(String(e.target.value));
+              }}
+            />
+          </div>
+          <div className="my-3">
+            <label htmlFor="slug">Slug</label>
+            <br />
+            <input
+              name="slug"
+              readOnly
+              type="text"
+              id="slug"
+              className="outline-none border p-1 w-full rounded-md"
+              value={slugs}
+            />
+          </div>
+          <div className="my-3">
+            <label htmlFor="content">Write about post</label>
+            <br />
+            <textarea
+              name="content"
+              type="text"
+              id="content"
+              rows={4}
+              placeholder="write about your posts"
+              className="outline-none border p-1 w-full rounded-md"
+            />
+          </div>
+          <div className="my-3">
+            <label htmlFor="image">Upload featured image</label>
+            <br />
+            <input
+              name="uploadImg"
+              type="file"
+              accept="image/png, image/jpeg image/jpg image/webp"
+              id="image"
+              className=""
+            />
+          </div>
+          <button
+            ref={btnRef}
+            type="submit"
+            className=" bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-sm my-2 px-5 py-1"
+          >
+            Post
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default AddPostForm;

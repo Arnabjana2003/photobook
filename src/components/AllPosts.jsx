@@ -17,20 +17,20 @@ function AllPosts() {
   if (posts.length == 0) {
     return (
       <>
-        {/* <h1 className=" text-violet-600 text-lg text-center font-bold">Loading all posts</h1> */}
-        <Loading/>
+        <Loading label="Getting all posts"/>
       </>
     );
   }
   return (
     <>
       {posts.map((item) => (
-        <div key={item.$id} className=" mx-auto w-[90%] md:w-[300px] flex justify-center my-5">
+        <div key={item.$id} className=" mx-auto w-[90%] md:max-w-md lg:max-w-lg flex justify-center my-5">
           <PostCard
             $id={item.$id}
             title={item.title}
             featuredImage={item.featuredImage}
             username = {item.username}
+            time = {item.$createdAt.slice(0,10)}
           />
         </div>
       ))}

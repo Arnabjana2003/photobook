@@ -27,7 +27,14 @@ function Header() {
   return (
     <>
       <nav className="min-w-full p-1 flex justify-between items-center bg-slate-200">
-        <div className="text-blue-600 font-bold text-lg">Photosbook</div>
+        <div>
+          <h3 className="text-blue-600 font-bold text-lg md:text-xl lg:text-2xl">
+            Photosbook
+          </h3>
+          <p className=" font-semibold text-[9px] md:text-[11px] lg:text-[13px] text-end leading-[2px]">
+            by Arnab
+          </p>
+        </div>
         <div className=" flex items-center">
           {navLinks.map(
             (item) =>
@@ -44,7 +51,10 @@ function Header() {
                   }
                 >
                   {item.icon ? (
-                    <img className=" w-5 inline" src={item.icon} />
+                    <img
+                      className=" w-5 md:w-7 inline"
+                      src={item.icon}
+                    />
                   ) : (
                     <p className="inline">{item.name}</p>
                   )}
