@@ -65,7 +65,7 @@ function AddPostForm() {
 
   
   if(loading){
-    return <Loading label="Uploading new Post"/>
+    return <Loading label="Uploading new Post. Don't refresh the page. It may take time to upload image" textSize="sm" bold="normal"/>
   }
   
   else{
