@@ -15,13 +15,14 @@ function AddPostForm() {
 
 
   const handleClick = async (event) => {
-    setLoading(true);
+    
     const title = event.title.value;
     const slug = event.slug.value;
     const content = event.content.value;
     const imgFile = event.uploadImg.files[0];
 
     if (title && slug && content && imgFile) {
+      setLoading(true);
       btnRef.current.disabled = true;
       services.uploadFile(imgFile)
       .then((imgData)=>{
