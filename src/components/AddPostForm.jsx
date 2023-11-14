@@ -70,7 +70,9 @@ function AddPostForm() {
   
   if(loading){
     return <Loading label="Uploading new Post"/>
-  }else{
+  }
+  
+  else{
     return (
       <div className="w-full h-full flex justify-center items-centerr mt-10">
         <form
@@ -78,9 +80,10 @@ function AddPostForm() {
             e.preventDefault();
             handleClick(e.target);
           }}
-          className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 rounded-md bg-blue-100"
+          className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 border-blue-600 rounded-md bg-blue-100"
         >
           <div className="my-3">
+            <h4 className=" text-center text-blue-500 font-sans font-semibold md:font-bold text-lg mb-3 underline underline-offset-4 decoration-blue-700">Add new post</h4>
             <label htmlFor="title">Title</label>
             <br />
             <input
