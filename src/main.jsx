@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "",
+        element: <Protecter><PostsPage /></Protecter>,
+      },
+      {
         path: "signup",
         element: <SignUpForm />,
       },
