@@ -7,26 +7,17 @@ import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm.jsx";
 import LogInForm from "./components/LogInForm.jsx";
-import HomePage from "./pages/HomePage.jsx";
 import Protecter from "./components/Protecter.jsx";
-import AllPosts from "./components/AllPosts.jsx";
 import AddPostForm from "./components/AddPostForm.jsx";
 import ViewPost from "./components/ViewPost.jsx";
 import PostsPage from "./pages/PostsPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "",
-        element: (
-          <Protecter>
-            <HomePage />
-          </Protecter>
-        ),
-      },
       {
         path: "signup",
         element: <SignUpForm />,
@@ -59,7 +50,15 @@ const router = createBrowserRouter([
         path: "posts/:slug",
         element: (
           <Protecter authentication>
-            <ViewPost/>
+            <ViewPost />
+          </Protecter>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <Protecter authentication>
+            <ProfilePage />
           </Protecter>
         ),
       },

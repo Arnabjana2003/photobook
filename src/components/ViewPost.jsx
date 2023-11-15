@@ -15,23 +15,27 @@ function ViewPost() {
     services.getPost(slug).then((data) => {
       console.log(data);
       setPost(data);
-      authService.getCurrentUSer().then((user)=>{
-        if(data.userId === user.$id){
-          setModification(true)
+      authService.getCurrentUSer().then((user) => {
+        if (data.userId === user.$id) {
+          setModification(true);
         }
-      })
+      });
     });
   }, []);
   if (post && !loading) {
     return (
-      <div className="w-screen min-h-screen md:h-auto py-8 flex justify-center p-1">
-        <div className="md:max-w-[85%] max-h-[80%] flex justify-center">
-          <div className="w-full md:w-3/5 ">
+      <div className="w-screen min-h-screen md:h-auto py-8 flex justify-center p-2">
+        <div className="flex justify-center">
+          <div className="w-full md:w-4/5">
             <div className="flex justify-between items-center">
               <h4 className="font-semibold my-1 text-blue-600">
                 {post.username}
               </h4>
-              <div className={`${modification?"block":"hidden"} relative text-2xl md:text-4xl text-blue-700 font-semibold pb-3 w-fit]`}>
+              <div
+                className={`${
+                  modification ? "block" : "hidden"
+                } relative text-2xl md:text-3xl text-blue-700 font-semibold pb-3 w-fit]`}
+              >
                 <span onClick={() => setDots((prev) => !prev)}>...</span>
                 <div
                   className={` bg-slate-500 p-3 rounded-xl rounded-tr-none text-white text-sm font-normal absolute right-1 min-w-max ${
@@ -50,16 +54,19 @@ function ViewPost() {
                 </div>
               </div>
             </div>
-            <h1 className=" font-sans text-base md:text-lg lg:text-xl font-bold">{post.title}</h1>
-            <p className=" text-sm lg:text-base font-sans">{post.content}</p>
+            <h1 className=" font-sans text-base md:text-lg lg:text-xl font-bold">
+              {post.title}
+            </h1>
+            <p className=" text-sm lg:text-base font-sans py-2">
+              {post.content}
+            </p>
             <div className="border-4 flex justify-center items-center overflow-hidden">
               <img
                 src={services.previewFile(post.featuredImage)}
                 alt={post.title}
-                className=" max-w-full max-h-full object-cover"
+                className=" w-full max-h-full object-cover"
               />
             </div>
-            
           </div>
         </div>
       </div>

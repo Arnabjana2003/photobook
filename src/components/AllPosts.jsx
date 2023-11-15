@@ -1,36 +1,47 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import services from "../appwrite/services";
 import PostCard from "./PostCard";
 import Loading from "./Loading";
 
-function AllPosts() {
-  
+function AllPosts({ query = [] }) {
   const [posts, setPosts] = useState([]);
+  const [loading, setLaoding] = useState(false);
+
   useEffect(() => {
     (async () => {
-      const allPosts = await services.getAllPosts();
-      setPosts([...allPosts.documents]);
+      const allPosts = await services.getAllPosts(query);
+      const datas = [...allPosts.documents].reverse();
+      if (datas.length === 0) {
+        setPosts("no post");
+      } else {
+        setPosts(datas);
+      }
+      setLaoding(false);
     })();
   }, []);
-  if (posts.length == 0) {
+
+  if (posts.length === 0) {
     return (
       <>
-        <Loading label="Getting all posts"/>
+        <Loading label="Getting all posts" />
       </>
     );
+  } else if (posts === "no post") {
+    return <p className="text-center">No Posts found</p>;
   }
   return (
     <>
       {posts.map((item) => (
-        <div key={item.$id} className=" mx-auto w-[90%] md:max-w-md lg:max-w-lg flex justify-center my-5">
+        <div
+          key={item.$id}
+          className=" mx-auto w-full min-[376px]:max-w-[80%] sm:max-w-sm md:max-w-md flex justify-center my-3"
+        >
           <PostCard
             $id={item.$id}
             title={item.title}
             featuredImage={item.featuredImage}
-            username = {item.username}
-            time = {item.$createdAt.slice(0,10)}
+            username={item.username}
+            time={item.$createdAt.slice(0, 10)}
           />
         </div>
       ))}

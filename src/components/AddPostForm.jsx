@@ -4,52 +4,55 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
-
 function AddPostForm() {
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const btnRef = useRef();
   const [titles, setTitles] = useState("");
   const [slugs, setSlugs] = useState("");
-  const navigate = useNavigate(); 
-  const currentUser = useSelector(state=>state.authReducer.userData)
-
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.authReducer.userData);
 
   const handleClick = async (event) => {
-    
     const title = event.title.value;
-    const slug = event.slug.value;
+    const link = event.slug.value;
+    const slug = String(link).concat(
+      String(Math.floor(Math.random() * 100000000000000))
+    );
     const content = event.content.value;
     const imgFile = event.uploadImg.files[0];
 
     if (title && slug && content && imgFile) {
       setLoading(true);
       btnRef.current.disabled = true;
-      services.uploadFile(imgFile)
-      .then((imgData)=>{
-        const featuredImage = imgData.$id;
-        const userId = currentUser.$id;
-        const username = currentUser.name;
-        services.createPost(
-          title,
-          slug,
-          content,
-          featuredImage,
-          "active",
-          userId,
-          username
-        )
-        .then(()=>{
-          btnRef.current.disabled = false;
-          navigate("/all-posts");
+      services
+        .uploadFile(imgFile)
+        .then((imgData) => {
+          const featuredImage = imgData.$id;
+          const userId = currentUser.$id;
+          const username = currentUser.name;
+          services
+            .createPost(
+              title,
+              slug,
+              content,
+              featuredImage,
+              "active",
+              userId,
+              username
+            )
+            .then(() => {
+              btnRef.current.disabled = false;
+              navigate("/all-posts");
+            });
         })
-      })
-        .catch((err)=>{
+        .catch((err) => {
           console.log(err);
           alert("Error");
-        btnRef.current.disabled = false;
-        }).finally(()=>{
-          setLoading(false)
+          btnRef.current.disabled = false;
         })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       alert("Enter all the feilds");
     }
@@ -64,12 +67,15 @@ function AddPostForm() {
     setSlugs(slugVal);
   }, [titles]);
 
-  
-  if(loading){
-    return <Loading label="Uploading new Post. Don't refresh the page. It may take time to upload image" textSize="sm" bold="normal"/>
-  }
-  
-  else{
+  if (loading) {
+    return (
+      <Loading
+        label="Uploading new Post. Don't refresh the page. It may take time to upload image"
+        textSize="sm"
+        bold="normal"
+      />
+    );
+  } else {
     return (
       <div className="w-full h-full flex justify-center items-centerr mt-10">
         <form
@@ -80,7 +86,9 @@ function AddPostForm() {
           className=" w-4/5 md:w-2/5 lg:w-2/6 border-double p-3 border-4 border-blue-600 rounded-md bg-blue-100"
         >
           <div className="my-3">
-            <h4 className=" text-center text-blue-500 font-sans font-semibold md:font-bold text-lg mb-3 underline underline-offset-4 decoration-blue-700">Add new post</h4>
+            <h4 className=" text-center text-blue-500 font-sans font-semibold md:font-bold text-lg mb-3 underline underline-offset-4 decoration-blue-700">
+              Add new post
+            </h4>
             <label htmlFor="title">Title</label>
             <br />
             <input

@@ -1,12 +1,14 @@
-import React from 'react'
-import { AllPosts } from '../components'
+import { AllPosts } from "../components";
+import Container from "../components/Container";
 
 function PostsPage() {
   return (
-    <div className='flex flex-col'>
-        <AllPosts/>
-    </div>
-  )
+    <Container>
+      <div className="flex flex-col">
+        <AllPosts />
+      </div>
+    </Container>
+  );
 }
 
-export default PostsPage
+export default PostsPage;
