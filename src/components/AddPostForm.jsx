@@ -22,6 +22,7 @@ function AddPostForm() {
     const imgFile = event.uploadImg.files[0];
 
     if (title && slug && content && imgFile) {
+      
       setLoading(true);
       btnRef.current.disabled = true;
       services

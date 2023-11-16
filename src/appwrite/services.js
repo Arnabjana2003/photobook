@@ -62,11 +62,11 @@ export class Services {
     }
   }
 
-  async getPost(slug) {
+  async getPost(collectionId = String(import.meta.env.VITE_APPWRITE_COLLECTION_ID), slug) {
     try {
       return this.databases.getDocument(
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
-        String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
+        collectionId,
         slug
       );
     } catch (error) {
@@ -120,6 +120,47 @@ export class Services {
       String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
       fileId
     );
+  }
+
+  //USER_PIC
+  async createPhoto(
+    userId, profilePic, coverPic
+  ) {
+    try {
+      return await this.databases.createDocument(
+        String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
+        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+        userId,
+        { profilePic,coverPic }
+      );
+    } catch (error) {
+      console.log("DATABASE CREATE POST error", error);
+    }
+  }
+
+  async updateProfilePhoto(userId, profilePic) {
+    try {
+      return await this.databases.updateDocument(
+        String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
+        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+        userId,
+        { profilePic}
+      );
+    } catch (error) {
+      console.log("DATABASE UPDATE error", error);
+    }
+  }
+  async updateCoverPhoto(userId, coverPic) {
+    try {
+      return await this.databases.updateDocument(
+        String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
+        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+        userId,
+        { coverPic}
+      );
+    } catch (error) {
+      console.log("DATABASE UPDATE error", error);
+    }
   }
 }
 
