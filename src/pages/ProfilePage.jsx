@@ -17,6 +17,8 @@ function ProfilePage() {
   const [oldUser, setOldUser] = useState(false);
   const pic1 = useRef(null);
   const pic2 = useRef(null);
+
+
   useEffect(() => {
     authService.getCurrentUSer().then((data) => {
       services
@@ -35,10 +37,14 @@ function ProfilePage() {
           } else {
             setUserData(data);
           }
-        });
+        }).catch(()=>{
+          setUserData(data);
+        })
     });
   }, []);
-  const cngPhoto = async() => {
+
+
+  const cngPhoto = async () => {
     if (pic1.current && pic2.current) {
       if (pic1.current.value && pic2.current.value) {
         setLoading(true);
@@ -62,34 +68,35 @@ function ProfilePage() {
       } else {
         alert("Select Cover and Profile photo both");
       }
-    } 
-    
-    
-    else {
+    } else {
       if (pic1.current.value) {
-        setLoading(true)
-        if(cngPic === "profilePic"){
-          services.uploadFile(pic1.current.files[0])
-          .then(data=>{
-            services.updateProfilePhoto(userData.$id,data.$id).then(()=>{
-              services.deleteFile(userData.profilePic)
+        setLoading(true);
+        if (cngPic === "profilePic") {
+          services
+            .uploadFile(pic1.current.files[0])
+            .then((data) => {
+              services.updateProfilePhoto(userData.$id, data.$id).then(() => {
+                services.deleteFile(userData.profilePic);
+              });
             })
-          }).catch(err=>alert(err.message))
-          .finally(()=>{
-            setCngPic(false)
-            setLoading(false)
-          })
-        }else if(cngPic === "coverPic"){
-          services.uploadFile(pic1.current.files[0])
-          .then(data=>{
-            services.updateCoverPhoto(userData.$id,data.$id).then(()=>{
-              services.deleteFile(userData.coverPic)
+            .catch((err) => alert(err.message))
+            .finally(() => {
+              setCngPic(false);
+              setLoading(false);
+            });
+        } else if (cngPic === "coverPic") {
+          services
+            .uploadFile(pic1.current.files[0])
+            .then((data) => {
+              services.updateCoverPhoto(userData.$id, data.$id).then(() => {
+                services.deleteFile(userData.coverPic);
+              });
             })
-          }).catch(err=>alert(err.message))
-          .finally(()=>{
-            setCngPic(false)
-            setLoading(false)
-          })
+            .catch((err) => alert(err.message))
+            .finally(() => {
+              setCngPic(false);
+              setLoading(false);
+            });
         }
       } else {
         alert("Please select a photo");
@@ -165,9 +172,7 @@ function ProfilePage() {
           <h2 className="text-lg font-bold mt-[80px] md:mt-[110px]">
             {userData.name}
           </h2>
-          <p>
-            {userData.email}
-          </p>
+          <p>{userData.email}</p>
           <div className=" my-3">
             <button
               onClick={() => navigate("/add-post")}

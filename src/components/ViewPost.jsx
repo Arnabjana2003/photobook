@@ -17,7 +17,7 @@ function ViewPost() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    services.getPost(slug).then((data) => {
+    services.getPost( String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),slug).then((data) => {
       setPost(data);
       setTitle(data.title);
       setContent(data.content);
