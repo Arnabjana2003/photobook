@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/authService";
 import { login, logout } from "./store/authSlice";
-
 import { Outlet } from "react-router-dom";
 
 function App() {

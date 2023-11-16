@@ -62,7 +62,7 @@ function LogInForm() {
             <div className="flex justify-center flex-col items-center">
               <button
                 ref={btnRef}
-                className=" bg-blue-700 text-white font-semibold px-4 py-1 rounded-md my-2 disabled:bg-blue-300"
+                className=" bg-blue-700 text-white font-semibold px-4 py-1 rounded-md my-2 disabled:bg-blue-300 hover:bg-blue-900 hover:scale-105"
                 onClick={() =>
                   logIn(emailRef.current.value, passRef.current.value)
                 }

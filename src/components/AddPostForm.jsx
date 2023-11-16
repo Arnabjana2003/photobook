@@ -141,7 +141,7 @@ function AddPostForm() {
           <button
             ref={btnRef}
             type="submit"
-            className=" bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-sm my-2 px-5 py-1"
+            className=" bg-blue-600 disabled:bg-blue-400 text-white font-semibold rounded-sm my-2 px-5 py-1 hover:bg-blue-900 hover:scale-105"
           >
             Post
           </button>

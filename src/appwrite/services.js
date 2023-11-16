@@ -35,13 +35,13 @@ export class Services {
     }
   }
 
-  async updatePost(slug, { title, featuredImage, content, status }) {
+  async updatePost(slug, title, content) {
     try {
       return await this.databases.updateDocument(
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
         String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
         slug,
-        { title, content, featuredImage, status }
+        { title, content}
       );
     } catch (error) {
       console.log("DATABASE UPDATE error", error);

@@ -34,7 +34,7 @@ function AllPosts({ query = [] }) {
       {posts.map((item) => (
         <div
           key={item.$id}
-          className=" mx-auto w-full min-[376px]:max-w-[80%] sm:max-w-sm md:max-w-md flex justify-center my-3"
+          className=" mx-auto w-full sm:max-w-md flex justify-center my-3"
         >
           <PostCard
             $id={item.$id}

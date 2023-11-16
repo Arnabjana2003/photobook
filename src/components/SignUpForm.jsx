@@ -65,7 +65,7 @@ function SignUpForm() {
             <div className="flex justify-center flex-col items-center">
               <button
                 ref={btnRef}
-                className=" disabled:bg-blue-300 bg-blue-700 text-white font-semibold py-1 px-3 rounded-md my-2"
+                className=" disabled:bg-blue-300 bg-blue-700 text-white font-semibold py-1 px-3 rounded-md my-2 hover:bg-blue-900 hover:scale-105"
                 onClick={() =>
                   signUp(
                     emailRef.current.value,
