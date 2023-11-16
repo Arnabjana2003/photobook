@@ -18,8 +18,15 @@ function ProfilePage() {
   else {
     return (
       <Container>
-        <div className="flex flex-col items-center mt-6">
-          <h2 className="text-lg font-bold">{userData.name}</h2>
+        <div className="flex flex-col items-center">
+          <div className=" w-full h-[170px] md:h[200px] bg-slate-600 relative">
+            <div className="w-full h-full absolute top-[40%] flex justify-center">
+              <div className="bg-black text-white rounded-full w-[170px] h-[170px] md:w-[200px] md:h-[200px] z-10"></div>
+            </div>
+          </div>
+          <h2 className="text-lg font-bold mt-[80px] md:mt-[110px]">
+            {userData.name}
+          </h2>
           <p>{userData.email}</p>
           <div className=" my-3">
             <button
