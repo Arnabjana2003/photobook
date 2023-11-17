@@ -61,7 +61,7 @@ function ProfilePage() {
                 });
             });
           })
-          .catch((err) => alert(err.message))
+          .catch((err) => console.log(err))
           .finally(() => {
             setLoading(false);
           });
@@ -71,6 +71,7 @@ function ProfilePage() {
     } else {
       if (pic1.current.value) {
         setLoading(true);
+        setCngPic(false)
         if (cngPic === "profilePic") {
           services
             .uploadFile(pic1.current.files[0])

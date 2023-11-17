@@ -30,7 +30,7 @@ export class AuthService{
         } catch (error) {
             return error
         }
-        
+        return false
     }
 
     async logout(){

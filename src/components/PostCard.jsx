@@ -2,15 +2,20 @@ import { Link } from "react-router-dom";
 import services from "../appwrite/services";
 import UserIcon from "./UserIcon";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function PostCard({ $id, title, featuredImage, username = "user", time = "",userId}) {
-  let img;
+  const [img,setImg] = useState();
   const user = useSelector(state=>state.userReducer.userList)
-  user.forEach(item => {
-    if(item.$id == userId){
-      img = services.previewFile(item.profilePic)
+  useEffect(()=>{
+    if(user){
+      user.forEach(item => {
+        if(item.$id == userId){
+          setImg(services.previewFile(item.profilePic))
+        }
+      });
     }
-  });
+  },[user])
     
   
   
