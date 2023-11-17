@@ -17,6 +17,8 @@ function ProfilePage() {
   const [oldUser, setOldUser] = useState(false);
   const pic1 = useRef(null);
   const pic2 = useRef(null);
+  const saveBtn = useRef(null);
+  const cancelBtn = useRef(null);
 
 
   useEffect(() => {
@@ -44,10 +46,14 @@ function ProfilePage() {
   }, []);
 
 
+
+
   const cngPhoto = async () => {
     if (pic1.current && pic2.current) {
+      saveBtn.current.innerText = "Saving";
+      saveBtn.current.disabled = true;
+      cancelBtn.current.disabled = true;
       if (pic1.current.value && pic2.current.value) {
-        setLoading(true);
         services
           .uploadFile(pic1.current.files[0])
           .then((cover) => {
@@ -57,18 +63,27 @@ function ProfilePage() {
               services
                 .createPhoto(userData.$id, profilePic, coverPic)
                 .then(() => {
-                  setCngPic(false);
+                 alert("Successfull")
+                 navigate("/all-posts")
                 });
             });
           })
-          .catch((err) => console.log(err))
+          .catch((err) => alert(err.message))
           .finally(() => {
-            setLoading(false);
+            saveBtn.current.innerText = "Save";
+            saveBtn.current.disabled = false;
+            cancelBtn.current.disabled = false;
+            setCngPic(false);
           });
       } else {
         alert("Select Cover and Profile photo both");
+        saveBtn.current.innerText = "Save";
+         saveBtn.current.disabled = false;
+         cancelBtn.current.disabled = false;
       }
-    } else {
+    }
+    
+    else {
       if (pic1.current.value) {
         setLoading(true);
         setCngPic(false)
@@ -77,7 +92,9 @@ function ProfilePage() {
             .uploadFile(pic1.current.files[0])
             .then((data) => {
               services.updateProfilePhoto(userData.$id, data.$id).then(() => {
-                services.deleteFile(userData.profilePic);
+                services.deleteFile(userData.profilePic).then(()=>{
+                  alert("Successfull, Refresh the page")
+                })
               });
             })
             .catch((err) => alert(err.message))
@@ -141,14 +158,16 @@ function ProfilePage() {
                   ) : null}
                   <div className=" mt-4">
                     <button
-                      className=" bg-blue-600 p-1 text-white rounded-md mx-2 px-2 hover:bg-blue-800 hover:scale-105"
+                      className=" bg-blue-600 p-1 text-white rounded-md mx-2 px-2 hover:bg-blue-800 hover:scale-105 disabled:bg-blue-300"
                       onClick={cngPhoto}
+                      ref={saveBtn}
                     >
                       Save
                     </button>
                     <button
-                      className=" bg-slate-300 p-1 rounded-md mx-2 px- hover:bg-slate-500 hover:scale-105"
+                      className=" bg-slate-300 p-1 rounded-md mx-2 px- hover:bg-slate-500 disabled:bg-slate-300 hover:scale-105"
                       onClick={() => setCngPic(false)}
+                      ref={cancelBtn}
                     >
                       Cancel
                     </button>
@@ -183,10 +202,10 @@ function ProfilePage() {
             </button>
           </div>
         </div>
-        <div className="mt-3 p-2">
+        {/* <div className="mt-3 p-2">
           <p>Posts: </p>
           <AllPosts query={[Query.equal("userId", userData.$id)]} />
-        </div>
+        </div> */}
       </Container>
     );
   }
