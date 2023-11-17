@@ -201,10 +201,10 @@ function ProfilePage() {
             </button>
           </div>
         </div>
-        {/* <div className="mt-3 p-2">
+        <div className="mt-3 p-2">
           <p>Posts: </p>
           <AllPosts query={[Query.equal("userId", userData.$id)]} />
-        </div> */}
+        </div>
       </Container>
     );
   }
