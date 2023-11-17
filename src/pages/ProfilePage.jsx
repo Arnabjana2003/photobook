@@ -157,7 +157,7 @@ function ProfilePage() {
             ) : null}
             <div className="w-full h-full absolute top-[40%] flex justify-center">
               <div
-                className="bg-black text-white rounded-full w-[170px] h-[170px] md:w-[200px] md:h-[200px] z-10 overflow-hidden border-4 border-blue-400 border-double"
+                className="bg-black text-white rounded-full w-[170px] h-[170px] md:w-[200px] md:h-[200px] z-10 overflow-hidden border-8 border-blue-400 border-double shadow-md shadow-slate-700"
                 onClick={() => setCngPic("profilePic")}
               >
                 {oldUser ? (
@@ -176,7 +176,7 @@ function ProfilePage() {
           <div className=" my-3">
             <button
               onClick={() => navigate("/add-post")}
-              className="px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-800 hover:scale-105"
+              className="px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-800 hover:scale-105 shadow-lg shadow-blue-800"
             >
               Create Post
             </button>

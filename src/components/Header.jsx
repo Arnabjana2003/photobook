@@ -2,14 +2,33 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import LogOutBtn from "./LogOutBtn";
 import imageIcon from "./../assets/add.svg";
-import userIcon from "./../assets/user.svg";
+import userIcon from "./../assets/user.jpg";
 import homeIcon from "./../assets/home.svg";
 import UserIcon from "./UserIcon";
 import { useState } from "react";
+import { useEffect } from "react";
+import services from "../appwrite/services"
 
 function Header() {
   const [profile, setProfile] = useState(false);
+  const [img,setImg] = useState();
   const authData = useSelector((state) => state.authReducer);
+  useEffect(()=>{
+    if(authData.status){
+      services
+        .getPost(
+          String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+          authData.userData.$id
+        )
+        .then((picData) => {
+          if (picData.profilePic) {
+            setImg(services.previewFile(picData.profilePic))
+          }
+        }).catch(()=>{
+          setImg()
+        })
+    }
+  },[authData])
   const navLinks = [
     { name: "Login", slug: "/login", active: !authData.status },
     { name: "SignUp", slug: "/signup", active: !authData.status },
@@ -77,7 +96,7 @@ function Header() {
               className="pt-2 px-2 relative"
               onClick={() => setProfile((pre) => !pre)}
             >
-              <UserIcon />
+              <UserIcon img={img} />
               <div
                 className={`${
                   profile ? "block" : "hidden"

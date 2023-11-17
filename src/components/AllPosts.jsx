@@ -2,23 +2,25 @@ import { useState, useEffect } from "react";
 import services from "../appwrite/services";
 import PostCard from "./PostCard";
 import Loading from "./Loading";
+import {useSelector} from "react-redux"
 
 function AllPosts({ query = [] }) {
   const [posts, setPosts] = useState([]);
-  const [loading, setLaoding] = useState(false);
+  const authData = useSelector(state=>state.authReducer)
 
   useEffect(() => {
-    (async () => {
-      const allPosts = await services.getAllPosts(query);
+    services.getAllPosts(query)
+    .then((allPosts)=>{
       const datas = [...allPosts.documents].reverse();
       if (datas.length === 0) {
         setPosts("no post");
       } else {
         setPosts(datas);
       }
-      setLaoding(false);
-    })();
-  }, []);
+    })
+      
+    
+  }, [authData]);
 
   if (posts.length === 0) {
     return (
@@ -42,6 +44,7 @@ function AllPosts({ query = [] }) {
             featuredImage={item.featuredImage}
             username={item.username}
             time={item.$createdAt.slice(0, 10)}
+            userId = {item.userId}
           />
         </div>
       ))}

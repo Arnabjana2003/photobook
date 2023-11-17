@@ -1,11 +1,11 @@
 import React from "react";
-import userIcon from "../assets/user.svg";
+import userIcon from "../assets/user.jpg";
 
-function UserIcon() {
+function UserIcon({img = userIcon}) {
   return (
     <>
-      <div className=" inline-block p-1 bg-white border-2 border-black rounded-full mr-1">
-        <img src={userIcon} className=" w-3" />
+      <div className=" w-8 h-8 inline-block bg-white border rounded-full mr-1 overflow-hidden ">
+        <img src={img} alt="pic" className=" w-full h-full object-cover" />
       </div>
     </>
   );

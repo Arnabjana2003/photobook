@@ -162,6 +162,17 @@ export class Services {
       console.log("DATABASE UPDATE error", error);
     }
   }
+  async getAllPhoto() {
+    try {
+      return await this.databases.listDocuments(
+        String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
+        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+      );
+    } catch (error) {
+      console.log("DATABASE GETALLPOSTS  error", error);
+      return false;
+    }
+  }
 }
 
 const services = new Services();
