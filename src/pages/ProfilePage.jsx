@@ -63,7 +63,6 @@ function ProfilePage() {
               services
                 .createPhoto(userData.$id, profilePic, coverPic)
                 .then(() => {
-                 alert("Successfull")
                  navigate("/all-posts")
                 });
             });
