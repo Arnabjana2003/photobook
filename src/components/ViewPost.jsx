@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import services from "../appwrite/services";
 import authService from "../appwrite/authService";
 import Loading from "./Loading";
 import DeleteBtn from "./DeleteBtn";
+import UserIcon from "./UserIcon";
 
 function ViewPost() {
-  const slug = useParams().slug;
+  const { slug, userId } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState();
   const [title, setTitle] = useState("jgkmjvfr");
@@ -17,16 +18,18 @@ function ViewPost() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    services.getPost( String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),slug).then((data) => {
-      setPost(data);
-      setTitle(data.title);
-      setContent(data.content);
-      authService.getCurrentUSer().then((user) => {
-        if (data.userId === user.$id) {
-          setModification(true);
-        }
+    services
+      .getPost(String(import.meta.env.VITE_APPWRITE_COLLECTION_ID), slug)
+      .then((data) => {
+        setPost(data);
+        setTitle(data.title);
+        setContent(data.content);
+        authService.getCurrentUSer().then((user) => {
+          if (data.userId === user.$id) {
+            setModification(true);
+          }
+        });
       });
-    });
   }, []);
 
   const onEdit = () => {
@@ -54,9 +57,14 @@ function ViewPost() {
         <div className="flex justify-center">
           <div className="w-full md:w-4/5">
             <div className="flex justify-between items-center">
-              <h4 className="font-semibold my-1 text-blue-600">
-                {post.username}
-              </h4>
+              <Link to={`view-profile/${post.username}/${userId}`}
+              className="flex items-center"
+              >
+              <UserIcon />
+                <h4 className="font-semibold my-1 text-blue-600 ml-2">
+                  {post.username}
+                </h4>
+              </Link>
               <div
                 className={`${
                   modification ? "block" : "hidden"
@@ -92,7 +100,7 @@ function ViewPost() {
             <input
               type="text"
               value={title}
-              className=" w-full bg-transparent outline-none font-sans text-base md:text-lg lg:text-xl font-bold"
+              className=" w-full bg-transparent outline-none font-sans text-base md:text-lg lg:text-xl font-bold mt-2"
               onChange={(e) => setTitle(e.target.value)}
               readOnly={!isEditable}
             />

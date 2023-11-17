@@ -12,6 +12,7 @@ import AddPostForm from "./components/AddPostForm.jsx";
 import ViewPost from "./components/ViewPost.jsx";
 import PostsPage from "./pages/PostsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import ViewProfile from "./pages/ViewProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "posts/:slug",
+        path: "posts/:slug/:userId",
         element: (
           <Protecter authentication>
             <ViewPost />
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
           <Protecter authentication>
             <ProfilePage />
+          </Protecter>
+        ),
+      },
+      {
+        path: "/posts/:slug/:userId/view-profile/:username/:userid",
+        element: (
+          <Protecter authentication>
+            <ViewProfile />
           </Protecter>
         ),
       },

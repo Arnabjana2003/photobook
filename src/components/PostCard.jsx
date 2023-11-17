@@ -20,7 +20,7 @@ function PostCard({ $id, title, featuredImage, username = "user", time = "",user
   
   
   return (
-    <Link to={`/posts/${$id}`}>
+    <Link to={`/posts/${$id}/${userId}`}>
       <div className="w-full bg-gray-100 rounded-md">
         <div className="flex justify-between items-center px-3 pt-3">
           <div className="font-bold text-blue-600 md:text-lg flex items-center mb-2">
