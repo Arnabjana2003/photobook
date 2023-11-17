@@ -13,6 +13,7 @@ import ViewPost from "./components/ViewPost.jsx";
 import PostsPage from "./pages/PostsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ViewProfile from "./pages/ViewProfile.jsx";
+import PhotoView from "./components/PhotoView.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
         element: (
           <Protecter authentication>
             <ViewProfile />
+          </Protecter>
+        ),
+      },
+      {
+        path: "/:imgid",
+        element: (
+          <Protecter authentication>
+            <PhotoView />
           </Protecter>
         ),
       },

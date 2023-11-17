@@ -128,11 +128,12 @@ function ViewPost() {
               </>
             ) : null}
             <div className="border-4 flex justify-center items-center overflow-hidden">
+              <Link to={`/${post.featuredImage}`}>
               <img
                 src={services.previewFile(post.featuredImage)}
                 alt={post.title}
                 className=" w-full max-h-full object-cover"
-              />
+              /></Link>
             </div>
           </div>
         </div>
