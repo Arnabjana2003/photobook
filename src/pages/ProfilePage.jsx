@@ -125,7 +125,7 @@ function ProfilePage() {
     return (
       <Container>
         <div className="flex flex-col items-center">
-          <div className=" w-full h-[170px] md:h[200px] bg-slate-500 relative">
+          <div className=" w-full h-[170px] md:h[200px] bg-slate-300 relative">
             <span
               onClick={() => setCngPic("coverPic")}
               className=" absolute top-1 left-1 bg-white p-1 rounded-md"
