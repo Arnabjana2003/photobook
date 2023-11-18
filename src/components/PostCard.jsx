@@ -11,7 +11,7 @@ function PostCard({ $id, title, featuredImage, username = "user", time = "",user
     if(user){
       user.forEach(item => {
         if(item.$id == userId){
-          setImg(services.previewFile(item.profilePic))
+          setImg(services.previewFile(item.profilePic,100,100,"center",50))
         }
       });
     }
@@ -33,7 +33,7 @@ function PostCard({ $id, title, featuredImage, username = "user", time = "",user
           {title}
         </h2>
         <div className="w-full justify-center mb-4">
-          <img src={services.previewFile(featuredImage)} alt={title} />
+          <img src={services.previewFile(featuredImage,0,0,"center",40)} alt={title} />
         </div>
       </div>
     </Link>

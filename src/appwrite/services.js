@@ -41,7 +41,7 @@ export class Services {
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
         String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
         slug,
-        { title, content}
+        { title, content }
       );
     } catch (error) {
       console.log("DATABASE UPDATE error", error);
@@ -62,7 +62,10 @@ export class Services {
     }
   }
 
-  async getPost(collectionId = String(import.meta.env.VITE_APPWRITE_COLLECTION_ID), slug) {
+  async getPost(
+    collectionId = String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
+    slug
+  ) {
     try {
       return this.databases.getDocument(
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
@@ -115,23 +118,22 @@ export class Services {
     }
   }
 
-  previewFile(fileId) {
+  previewFile(fileId, ...rest) {
     return this.bucket.getFilePreview(
       String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
-      fileId
+      fileId,
+      ...rest
     );
   }
 
   //USER_PIC
-  async createPhoto(
-    userId, profilePic, coverPic
-  ) {
+  async createPhoto(userId, profilePic, coverPic) {
     try {
       return await this.databases.createDocument(
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
         String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
         userId,
-        { profilePic,coverPic }
+        { profilePic, coverPic }
       );
     } catch (error) {
       console.log("DATABASE CREATE POST error", error);
@@ -144,7 +146,7 @@ export class Services {
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
         String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
         userId,
-        { profilePic}
+        { profilePic }
       );
     } catch (error) {
       console.log("DATABASE UPDATE error", error);
@@ -156,7 +158,7 @@ export class Services {
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
         String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
         userId,
-        { coverPic}
+        { coverPic }
       );
     } catch (error) {
       console.log("DATABASE UPDATE error", error);
@@ -166,7 +168,7 @@ export class Services {
     try {
       return await this.databases.listDocuments(
         String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
-        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID),
+        String(import.meta.env.VITE_APPWRITE_USERPIC_COLLECTION_ID)
       );
     } catch (error) {
       console.log("DATABASE GETALLPOSTS  error", error);

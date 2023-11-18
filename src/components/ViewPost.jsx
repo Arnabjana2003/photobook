@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import services from "../appwrite/services";
 import authService from "../appwrite/authService";
 import Loading from "./Loading";
 import DeleteBtn from "./DeleteBtn";
 import UserIcon from "./UserIcon";
+import { useSelector } from "react-redux";
 
 function ViewPost() {
   const { slug, userId } = useParams();
@@ -16,6 +17,18 @@ function ViewPost() {
   const [modification, setModification] = useState(false);
   const [dots, setDots] = useState(false);
   const [loading, setLoading] = useState(false);
+  const user = useSelector(state=>state.userReducer.userList)
+  const [img,setImg] = useState()
+
+  useMemo(()=>{
+    if(user){
+      user.forEach(item => {
+        if(item.$id == userId){
+          setImg(services.previewFile(item.profilePic,100,100,"center",50))
+        }
+      });
+    }
+  },[user,userId])
 
   useEffect(() => {
     services
@@ -60,7 +73,7 @@ function ViewPost() {
               <Link to={`view-profile/${post.username}/${userId}`}
               className="flex items-center"
               >
-              <UserIcon />
+              <UserIcon img={img} />
                 <h4 className="font-semibold my-1 text-blue-600 ml-2">
                   {post.username}
                 </h4>

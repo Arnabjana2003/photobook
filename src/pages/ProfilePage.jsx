@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import authService from "../appwrite/authService";
 import { Query } from "appwrite";
 import Loading from "../components/Loading";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AllPosts from "../components/AllPosts";
 import Container from "../components/Container";
 import InputBox from "../components/InputBox";
@@ -134,10 +134,12 @@ function ProfilePage() {
             </span>
             <div className=" h-full overflow-hidden">
               {oldUser ? (
+                <Link to={`/${userData.coverPic}`}>
                 <img
-                  src={services.previewFile(userData.coverPic)}
+                  src={services.previewFile(userData.coverPic,0,0,"center",80)}
                   className="w-full h-full object-cover"
                 />
+                </Link>
               ) : null}
             </div>
             {cngPic ? (
@@ -176,14 +178,22 @@ function ProfilePage() {
             ) : null}
             <div className="w-full h-full absolute top-[40%] flex justify-center">
               <div
-                className="bg-black text-white rounded-full w-[170px] h-[170px] md:w-[200px] md:h-[200px] z-10 overflow-hidden border-8 border-blue-400 border-double shadow-md shadow-slate-700"
-                onClick={() => setCngPic("profilePic")}
+                className="bg-black text-white rounded-full w-[170px] h-[170px] md:w-[200px] md:h-[200px] z-10 overflow-hidden border-8 border-blue-400 border-double shadow-md shadow-slate-700 relative"
+                
               >
+                 <span
+              className=" absolute bottom-5 left-5 bg-white p-1 rounded-md"
+              onClick={() => setCngPic("profilePic")}
+            >
+              <img src={cameraIcon} alt="chnage" className="w-[15px]" />
+            </span>
                 {oldUser ? (
+                  <Link to={`/${userData.profilePic}`}>
                   <img
-                    src={services.previewFile(userData.profilePic)}
+                    src={services.previewFile(userData.profilePic,0,0,"center",60)}
                     className="w-full object-cover"
                   />
+                  </Link>
                 ) : null}
               </div>
             </div>

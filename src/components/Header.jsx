@@ -26,7 +26,7 @@ function Header() {
         )
         .then((picData) => {
           if (picData.profilePic) {
-            setImg(services.previewFile(picData.profilePic));
+            setImg(services.previewFile(picData.profilePic,100,100,"center",50));
           }
         })
     }) .catch(() => {
@@ -107,7 +107,7 @@ function Header() {
               <div
                 className={`${
                   profile ? "block" : "hidden"
-                } absolute right-0 bg-slate-500 text-white z-10 min-w-max rounded-md p-2`}
+                } absolute right-0 bg-slate-500 text-white z-30 min-w-max rounded-md p-2`}
               >
                 <ul>
                   {profileIconLinks.map((item) => (
