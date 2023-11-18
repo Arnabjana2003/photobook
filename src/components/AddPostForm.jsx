@@ -47,7 +47,6 @@ function AddPostForm() {
             });
         })
         .catch((err) => {
-          console.log(err);
           alert("Error");
           btnRef.current.disabled = false;
         })
