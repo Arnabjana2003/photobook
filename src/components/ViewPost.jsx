@@ -56,6 +56,17 @@ function ViewPost() {
         setIsEditable(false);
       });
   };
+  const onDelete = () => {
+    services.deleteFile(post.featuredImage)
+    .then(()=>services.deletePost(slug))
+      .then(() => {
+        navigate("/all-posts");
+      })
+      .catch((err) => alert(err.message))
+      .finally(() => {
+        setIsEditable(false);
+      });
+  };
 
   const onCancelEdit = () => {
     setTitle(post.title);
@@ -90,12 +101,14 @@ function ViewPost() {
                   }`}
                 >
                   <ul>
-                    <li className="m-1 px-3 py-1 block rounded-md hover:bg-blue-700">
-                      <DeleteBtn
+                    <li className="m-1 px-3 py-1 block rounded-md hover:bg-blue-700"
+                    onClick={onDelete}>
+                      {/* <DeleteBtn
                         label="Delete Post"
                         className="text-white"
                         loadFunc={(load) => setLoading(load)}
-                      />
+                      /> */}
+                      Delete Post
                     </li>
                     <li
                       onClick={() => {
