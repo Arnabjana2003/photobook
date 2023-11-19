@@ -57,6 +57,7 @@ function ViewPost() {
       });
   };
   const onDelete = () => {
+    setLoading(true)
     services.deleteFile(post.featuredImage)
     .then(()=>services.deletePost(slug))
       .then(() => {
@@ -65,6 +66,7 @@ function ViewPost() {
       .catch((err) => alert(err.message))
       .finally(() => {
         setIsEditable(false);
+        setLoading(false)
       });
   };
 
